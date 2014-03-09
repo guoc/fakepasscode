@@ -1,0 +1,10 @@
+{
+	entry = {
+		bundle = FakePasscodeSettings;
+		cell = PSLinkCell;
+		detail = "FakePasscodeSettingsListController";
+		icon = "FakePasscodeSettings.png";
+		isController = 1;
+		label = FakePasscode;
+	};
+}
