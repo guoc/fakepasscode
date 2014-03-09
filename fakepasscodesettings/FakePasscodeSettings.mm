@@ -42,7 +42,7 @@ BOOL protectiPlusIsInstalled() {
             [protectiPlusActionsSpecifier setValues:@[@0, @1, @2] titles:@[@"Do Nothing", @"Enable Protecti+", @"Disable Protecti+"]];
             
             if (protectiPlusActionsSpecifier) {
-                [(NSMutableArray *)_specifiers addObject:protectiPlusActionsSpecifier];
+                [(NSMutableArray *)_specifiers insertObject:protectiPlusActionsSpecifier atIndex:4];
             } else {
                 
             }
@@ -66,6 +66,20 @@ BOOL protectiPlusIsInstalled() {
     [prefDict setObject:value forKey:specifier.identifier];
     [prefDict writeToFile:@kPreferencesPath atomically:YES];
     notify_post("com.gviridis.fakepasscode/UpdatePreferences");
+}
+
+- (void)followMeOnTwitter {
+	if ([[UIApplication sharedApplication]canOpenURL:[NSURL URLWithString:@"tweetbot:"]]) {
+		[[UIApplication sharedApplication]openURL:[NSURL URLWithString:@"tweetbot:///user_profile/gviridis"]];
+	} else if ([[UIApplication sharedApplication]canOpenURL:[NSURL URLWithString:@"twitter:"]]) {
+		[[UIApplication sharedApplication]openURL:[NSURL URLWithString:@"twitter://user?screen_name=gviridis"]];
+	} else {
+		[[UIApplication sharedApplication]openURL:[NSURL URLWithString:@"http://twitter.com/intent/follow?screen_name=gviridis"]];
+	}
+}
+
+- (void)followMeOnWeibo {
+    [[UIApplication sharedApplication]openURL:[NSURL URLWithString:@"http://weibo.com/gviridis"]];
 }
 
 @end
