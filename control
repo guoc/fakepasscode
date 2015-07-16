@@ -1,7 +1,7 @@
 Package: com.gviridis.fakepasscode
 Name: FakePasscode
 Depends: mobilesubstrate, libactivator
-Version: 1.1
+Version: 1.2
 Architecture: iphoneos-arm
 Description: Input fake passcode as an Activator event
 Depiction: http://gviridis.com/fakepasscode/info.html

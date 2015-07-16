@@ -65,7 +65,9 @@ static ProtectiPlusAction protectiPlusAction = ProtectiPlusActionDoNothing;
                     break;
             }
 		} else {
-        	correctPasscode = [[NSString stringWithString:arg1] retain];
+			if (arg1 != nil && [arg1 isKindOfClass: [NSString class]]) {
+	        	correctPasscode = [[NSString stringWithString:arg1] retain];
+			}
 		}
     } else {
     	if ((fakePasscodeWasEntered && correctPasscode != nil)
@@ -74,10 +76,10 @@ static ProtectiPlusAction protectiPlusAction = ProtectiPlusActionDoNothing;
     		) {
 			correctPasscode = nil;
 		} else {
-		
+
 		}
     }
-    return result; 
+    return result;
 }
 
 %end
@@ -86,9 +88,9 @@ static ProtectiPlusAction protectiPlusAction = ProtectiPlusActionDoNothing;
 
 @interface FPDataSource: NSObject <LAEventDataSource> {
 }
- 
+
 + (id)sharedInstance;
- 
+
 @end
 
 @implementation FPDataSource
@@ -107,42 +109,42 @@ static ProtectiPlusAction protectiPlusAction = ProtectiPlusActionDoNothing;
         }
         return self;
 }
- 
+
 - (void)dealloc {
         if (LASharedActivator.runningInsideSpringBoard) {
                 [LASharedActivator unregisterEventDataSourceWithEventName:@"com.gviridis.fakepasscode"];
         }
         [super dealloc];
 }
- 
+
 - (NSString *)localizedTitleForEventName:(NSString *)eventName {
         return @"Fake Passcode";
 }
- 
+
 - (NSString *)localizedGroupForEventName:(NSString *)eventName {
         return @"Fake Passcode";
 }
- 
+
 - (NSString *)localizedDescriptionForEventName:(NSString *)eventName {
         return @"Fake passcode was entered";
 }
- 
+
 - (BOOL)eventWithNameIsHidden:(NSString *)eventName {
         return NO;
 }
- 
+
 - (BOOL)eventWithNameRequiresAssignment:(NSString *)eventName {
         return NO;
 }
- 
+
 - (BOOL)eventWithName:(NSString *)eventName isCompatibleWithMode:(NSString *)eventMode {
         return YES;
 }
- 
+
 - (BOOL)eventWithNameSupportsUnlockingDeviceToSend:(NSString *)eventName {
         return NO;
 }
- 
+
 @end
 
 
@@ -152,7 +154,7 @@ void updatePreferences(CFNotificationCenterRef center,void *observer,CFStringRef
         [fakePasscode release];
         fakePasscode = nil;
     } else {
-        
+
     }
     NSDictionary *prefDict = [NSDictionary dictionaryWithContentsOfFile:@kPreferencesPath];
     fakePasscode = [[prefDict objectForKey:@"fakePasscode"] retain];
@@ -167,5 +169,3 @@ void updatePreferences(CFNotificationCenterRef center,void *observer,CFStringRef
     notify_post("com.gviridis.fakepasscode/UpdatePreferences");
 	[FPDataSource sharedInstance];
 }
-
-
